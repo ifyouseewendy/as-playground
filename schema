@@ -1,0 +1,11 @@
+input Product {
+	price: Int!
+}
+
+# Currently, this query must be called run and accept a single top level argument 'input' with
+# content provided by your EP
+type Query {
+	run(input: Product!): Product!
+}
+
+schema { query: Query }

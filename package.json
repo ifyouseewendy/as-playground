@@ -2,12 +2,12 @@
   "scripts": {
     "asbuild:untouched": "asc assembly/index.ts -b build/untouched.wasm -t build/untouched.wat --validate --sourceMap --debug",
     "asbuild:optimized": "asc assembly/index.ts -b build/optimized.wasm -t build/optimized.wat --validate --sourceMap --optimize",
-    "asbuild": "npx asc assembly/index.ts -b script.wasm --validate --optimize --runtime none",
+    "asbuild": "npx asc assembly/index.ts -b script.wasm --validate --optimize --use abort=assembly/index/abort --runtime none",
     "test": "node tests"
   },
-  "dependencies": {
+  "devDependencies": {
     "@assemblyscript/loader": "^0.9.4",
-    "assemblyscript": "^0.9.4"
-  },
-  "devDependencies": {}
+    "assemblyscript": "^0.9.4",
+    "as-wasi": "0.0.1"
+  }
 }
