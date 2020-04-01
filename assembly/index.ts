@@ -1,21 +1,9 @@
-import { Console } from "as-wasi";
-
 export function abort(
   message: string | null,
   fileName: string | null,
   lineNumber: u32,
   columnNumber: u32
 ): void {
-  let errorMsg = "Error!";
-  if (message != null) {
-    errorMsg += " message: " + message! + ", ";
-  }
-  if (fileName != null) {
-    errorMsg += " filename: " + fileName! + ", ";
-  }
-  errorMsg += " line number: " + lineNumber.toString() + ", ";
-  errorMsg += " column number: " + columnNumber.toString();
-  Console.error(errorMsg);
 }
 
 @unmanaged
