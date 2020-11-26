@@ -1,11 +1,13 @@
-input Product {
+input Outputsrc__script__Product {
 	price: Int!
 }
 
-# Currently, this query must be called run and accept a single top level argument 'input' with
-# content provided by your EP
-type Query {
-	run(input: Product!): Product!
+
+input Inputsrc__script__Product {
+	price: Int!
 }
 
-schema { query: Query }
+
+type Query {
+	run(input: Inputsrc__script__Product!): Outputsrc__script__Product!
+}

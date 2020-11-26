@@ -1,13 +1,14 @@
 {
+  "devDependencies": {
+    "@shopify/scripts-toolchain-as": "^1.1.0",
+    "assemblyscript": "^0.14.0",
+    "as-wasi": "^0.2.1"
+  },
   "scripts": {
-    "asbuild:untouched": "asc assembly/index.ts -b build/untouched.wasm -t build/untouched.wat --validate --sourceMap --debug",
-    "asbuild:optimized": "asc assembly/index.ts -b build/optimized.wasm -t build/optimized.wat --validate --sourceMap --optimize",
-    "asbuild": "npx asc assembly/index.ts -b script.wasm --validate --optimize --use abort=assembly/index/abort --runtime none",
+    "asbuild": "npx shopify-scripts-build --src=src/script.ts --binary=build/script.wasm --schema=schema -- --lib=../node_modules --optimize --use Date=",
     "test": "node tests"
   },
-  "devDependencies": {
-    "@assemblyscript/loader": "^0.9.4",
-    "assemblyscript": "^0.9.4",
-    "as-wasi": "0.0.1"
+  "engines": {
+    "node": ">=14.5"
   }
 }
