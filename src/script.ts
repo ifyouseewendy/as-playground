@@ -18,6 +18,15 @@ export class Product {
     return buffer;
   }
 
+  static fromBuffer(buffer: ArrayBuffer): Product {
+    let product = new Product();
+
+    const decoder = new Decoder(buffer);
+    product.decode(decoder);
+
+    return product;
+  }
+
   encode(writer: Writer): void {
     writer.writeMapSize(1);
     writer.writeString("price");
@@ -40,14 +49,8 @@ export class Product {
   }
 }
 
-export function run(input: ArrayBuffer): Product {
-  const product = decodeInputs(input);
-  return product;
-}
-
-function decodeInputs(input: ArrayBuffer): Product {
-  const decoder = new Decoder(input);
-  let product = new Product();
-  product.decode(decoder);
-  return product;
+export function run(input: ArrayBuffer): ArrayBuffer {
+  const product = Product.fromBuffer(input);
+  // logic with product
+  return product.toBuffer();
 }

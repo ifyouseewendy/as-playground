@@ -3,10 +3,13 @@ import { Decoder, Writer, Encoder, Sizer } from 'as-msgpack';
 
 describe('run', () => {
   it('work', () => {
-    let input = new Product(42);
-    let output = run(input.toBuffer());
+    let product = new Product(42);
+    let input = product.toBuffer();
 
-    expect<Product>(output).toBeTruthy();
-    expect(output.price).toBe(42);
+    let output = run(input);
+    expect<ArrayBuffer>(output).toBeTruthy();
+
+    let result = Product.fromBuffer(output);
+    expect(result.price).toBe(42);
   });
 });
