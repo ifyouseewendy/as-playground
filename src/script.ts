@@ -3,9 +3,9 @@ import {Console} from "as-wasi";
 
 @unmanaged
 export class Product {
-  public price: u8;
+  public price: i32;
 
-  constructor(price: u8 = 0) {
+  constructor(price: i32 = 0) {
     this.price = price;
   }
 
@@ -30,7 +30,7 @@ export class Product {
   encode(writer: Writer): void {
     writer.writeMapSize(1);
     writer.writeString("price");
-    writer.writeUInt8(this.price);
+    writer.writeInt32(this.price);
   }
 
   decode(reader: Decoder): void {
@@ -41,7 +41,7 @@ export class Product {
       const field = reader.readString();
 
       if (field == "price") {
-        this.price = reader.readUInt8();
+        this.price = reader.readInt32();
       } else {
         reader.skip();
       }
@@ -49,8 +49,16 @@ export class Product {
   }
 }
 
-export function run(input: ArrayBuffer): ArrayBuffer {
-  const product = Product.fromBuffer(input);
-  // logic with product
-  return product.toBuffer();
+// This function can be generated during transforming. Currently, it's ignored by transformer by
+// starting with __.
+// This function will be the real entrance when executed on engine
+export function __run(rawInput: ArrayBuffer): ArrayBuffer {
+  const input = Product.fromBuffer(rawInput);
+  const output = run(input);
+  const raw_output = output.toBuffer();
+  return raw_output;
+}
+
+export function run(input: Product): Product {
+  return input;
 }
