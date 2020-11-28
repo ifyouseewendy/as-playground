@@ -7,7 +7,7 @@
     "@as-pect/cli": "^4.0.0"
   },
   "scripts": {
-    "asbuild": "npx shopify-scripts-toolchain-as build --src=src/script.ts --binary=build/script.wasm --schema=schema -- --lib=../node_modules --optimize --use Date=",
+    "asbuild": "npx shopify-scripts-toolchain-as build --src=src/script.ts --binary=build/script.wasm --schema=schema -- --lib=./node_modules --optimize --use Date=",
     "test": "asp --config tests/as-pect.config.js --verbose --summary"
   },
   "engines": {
