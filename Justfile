@@ -4,6 +4,9 @@ runtime_engine := "~/runtime-engine"
 build:
   npm run asbuild
 
+test:
+	npm test
+
 cli-deploy-and-run:
   cd {{runtime_engine}} && \
   cargo run --bin runtime-engine-cli -- \

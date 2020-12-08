@@ -1,4 +1,5 @@
-import {Decoder, Encoder, Writer, Sizer, Value} from 'as-msgpack'
+import {get_input_len, copy_input, write_output} from './shopify';
+import {Decoder, Encoder, Writer, Sizer, Value} from 'as-msgpack';
 import {Console} from "as-wasi";
 
 @unmanaged
@@ -52,13 +53,23 @@ export class Product {
 // This function can be generated during transforming. Currently, it's ignored by transformer by
 // starting with __.
 // This function will be the real entrance when executed on engine
-export function __run(rawInput: ArrayBuffer): ArrayBuffer {
-  const input = Product.fromBuffer(rawInput);
+export function __run(): void {
+  let raw_input = getInput();
+  const input = Product.fromBuffer(raw_input);
+
   const output = run(input);
+
   const raw_output = output.toBuffer();
-  return raw_output;
+  write_output(raw_output, raw_output.byteLength);
 }
 
 export function run(input: Product): Product {
   return input;
+}
+
+function getInput(): ArrayBuffer {
+  let len = get_input_len();
+  let inputBuffer = new ArrayBuffer(<i32>len);
+  copy_input(inputBuffer);
+  return inputBuffer;
 }
