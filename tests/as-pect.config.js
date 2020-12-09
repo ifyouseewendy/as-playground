@@ -6,7 +6,16 @@ module.exports = {
         "--lib": ["node_modules","src"]
     },
     disclude: [/node_modules/],
-    imports: {},
+    imports(memory, createImports, instantiateSync, binary) {
+      let result; // Imports can reference this
+
+      const myImports = {
+        shopify: require("./test-shopify.js")
+      };
+      result = instantiateSync(binary, createImports(myImports));
+      // return the entire result object from the loader
+      return result;
+    },
     performance: {
         enabled: false,
         maxSamples: 10000,
